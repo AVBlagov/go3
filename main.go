@@ -5,24 +5,28 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	_ "net/http"
+
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
 type solution struct {
-	a       int `json: "a"`
-	b       int `json: "b"`
-	c       int `json: "c"`
-	n_roots int `json: "n_roots"`
+	A       int `json: "a"`
+	B       int `json: "b"`
+	C       int `json: "c"`
+	N_roots int `json: "n_roots"`
 }
 
 var sol []solution
 
+//var sol2 []int
+
 func getLast(w http.ResponseWriter, r *http.Request) {
 	s := sol[len(sol)-1]
 	fmt.Println(s)
+	fmt.Printf("%T", s)
+
 	json.NewEncoder(w).Encode(s)
 
 }
@@ -45,12 +49,17 @@ func postValue(w http.ResponseWriter, r *http.Request) {
 		n = 0
 	}
 
+	if a == 0 {
+		n = 1
+	}
+
 	var s = solution{a, b, c, n}
+	//s:= {a, b, c, n}
 
 	sol = append(sol, s)
 
-	fmt.Println(sol)
-	json.NewEncoder(w).Encode(sol)
+	// fmt.Println(sol)
+	// json.NewEncoder(w).Encode(sol)
 }
 
 func main() {
