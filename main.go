@@ -23,20 +23,19 @@ var sol []solution
 func getLast(w http.ResponseWriter, r *http.Request) {
 	s := sol[len(sol)-1]
 	fmt.Println(s)
-	//json.NewEncoder(w).Encode(s)
-	json.NewDecoder(w).Decode(s)
+	json.NewEncoder(w).Encode(s)
 
 }
 
 func postValue(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("start")
+
 	vars := mux.Vars(r)
 	a, _ := strconv.Atoi(vars["a"])
 	b, _ := strconv.Atoi(vars["b"])
 	c, _ := strconv.Atoi(vars["c"])
-	//fmt.Println(a, b, c)
+
 	d := (b * b) - (4 * a * c)
-	//fmt.Println(d)
+
 	n := 0
 	if d > 0 {
 		n = 2
@@ -51,7 +50,7 @@ func postValue(w http.ResponseWriter, r *http.Request) {
 	sol = append(sol, s)
 
 	fmt.Println(sol)
-	//json.NewEncoder(w).Encode(sol)
+	json.NewEncoder(w).Encode(sol)
 }
 
 func main() {
